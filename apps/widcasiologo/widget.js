@@ -13,4 +13,4 @@ WIDGETS["casiologo"]={
         this.x+10,
         this.y+6)
     }
-  };
+};

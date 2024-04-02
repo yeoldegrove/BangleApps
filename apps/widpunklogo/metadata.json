@@ -1,0 +1,13 @@
+{
+  "id": "widpunklogo",
+  "name": "Punk Logo Widget",
+  "version": "0.01",
+  "description": "A simple widget that displays Punk logo when clock screen is active.",
+  "icon": "widget.png",
+  "type": "widget",
+  "tags": "widget,clock",
+  "supports": ["BANGLEJS2"],
+  "storage": [
+    {"name":"widpunklogo.wid.js","url":"widget.js"}
+  ]
+}
