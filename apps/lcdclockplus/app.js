@@ -17,14 +17,22 @@ let draw = function() {
   g.reset().setColor(g.theme.bg).setBgColor(g.theme.fg);
   g.clearRect(R.x,bar1Y+2,R.x2,bar2Y-2);
   var date = new Date();
-  var timeStr = require("locale").time(date, 1); // Hour and minute
+
+  // Construct time string with seconds
+  var hours = date.getHours();
+  var minutes = ("0" + date.getMinutes()).substr(-2);
+  var seconds = ("0" + date.getSeconds()).substr(-2);
+  var timeStrHM = hours + ":" + minutes;
+  var timeStrS = seconds; // Include seconds
 
   // Time
   if (is12Hour) {
-    g.setFontAlign(-1, 0).setFont("7x11Numeric7Seg:4").drawString(timeStr, R.x, y+39);
+    g.setFontAlign(-1, 0).setFont("7x11Numeric7Seg:4").drawString(timeStrHM, R.x-18, y+39);
+    g.setFontAlign(-1, 0).setFont("7x11Numeric7Seg:3").drawString(timeStrS, R.x+68, y+44);
     g.setFontAlign(1, 0).setFont("7Seg:2").drawString(require("locale").meridian(date).toUpperCase(), R.x2, y+30+(date.getHours() >= 12 ? 20 : 0));
   } else {
-    g.setFontAlign(0, 0).setFont("7x11Numeric7Seg:4").drawString(timeStr, x, y+39);
+    g.setFontAlign(0, 0).setFont("7x11Numeric7Seg:4").drawString(timeStrHM, x-18, y+39);
+    g.setFontAlign(0, 0).setFont("7x11Numeric7Seg:3").drawString(timeStrS, x+68, y+44);
   }
 
   // Day of week
@@ -39,7 +47,7 @@ let draw = function() {
   drawTimeout = setTimeout(function() {
     drawTimeout = undefined;
     draw();
-  }, 60000 - (Date.now() % 60000));
+  }, 1000 - (Date.now() % 1000));
 };
 
 let clockInfoDraw = (itm, info, options) => {
